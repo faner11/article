@@ -22,12 +22,15 @@ $ npx create-nuxt-app <项目名>
   $ ssh-copy-id root@1.2.3.4
   # 把本机的 SSH 秘钥添加至服务器，配置成功后，以后就不需要再执行这条 SSH 命令了
   ```
+
 ## pm2 自动部署
 
 ### 生成 pm2 配置文件
+
 ```s
 $ pm2 ecosystem
 ```
+
 运行后会在项目根目录生成 ecosystem.config.js 文件
 
 ### 这是个简单的配置文件，供大家参考
@@ -62,13 +65,16 @@ module.exports = {
 };
 
 ```
+
 `post-deploy`中做了哪些操作
-+ `rm -rf node_modules` 删除 node_modules
-+ `npm install` 重新安装包
-+ `npm run build` 运行打包
-+ `pm2 startOrReload ecosystem.config.js --env production` pm2 启动应用
+
+- `rm -rf node_modules` 删除 node_modules
+- `npm install` 重新安装包
+- `npm run build` 运行打包
+- `pm2 startOrReload ecosystem.config.js --env production` pm2 启动应用
 
 ### 初始化项目并发布
+
 - 本机初始化远程服务器上的项目`pm2 deploy dev setup`,命令中的`dev`是在上面配置文件中写的部署环境的名称。
 - git 提交代码，`git push origin master`将代码提交至远程仓库。
 - 部署项目`pm2 deploy dev`，这个命令执行后服务器把前面从本机提交至 git 仓库上的最新代码拉下拉，并且运行`post-deploy`中的命令。一般没什么问题的话，经过这几步操作，就能部署成功了。
@@ -105,7 +111,8 @@ const client = new OSS({
  */
 async function deleteDir(dir) {
   let result = await client.list({
-    prefix: dir
+    prefix: dir + "/",
+    delimiter: "/"
   });
   if (result.objects) {
     let aa = [];
@@ -194,5 +201,6 @@ export default {
 ```
 
 ## 结束
+
 至此我们的自动化部署加文件自动上传阿里云 oss 就完成了。
 以后只需执行`pm2 deploy dev`就可以了。
