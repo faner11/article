@@ -46,7 +46,7 @@ hibernate.hbm2ddl.auto 参数
 - create 每次加载 Hibernate 都会删除旧的表，生成新的表
 - create-drop 每次加载 Hibernate 都会生成新的表， sessionFactory 一关闭，表就自动删除。
 - update **最常用**，每次根据 model 自动更新表结构
-- validate **作者推荐** 验证创建数据库表结构，不创建表和更新表结构，**你的领导不会信任你的，创建表，加减字段还是自己操作 sql 更放心**。
+- validate **常用** 验证创建数据库表结构，不创建表和更新表结构，**你的领导不会信任你的，创建表，加减字段还是自己操作 sql 更放心**。
 
 ### 实体类
 
@@ -74,7 +74,7 @@ open class BaseEntity(
 )
 ```
 
-在实际业务场景中，每个表都会有固定的公共字段，我们不能每个实体类都写上这些字段是很蠢的，所以要将公共字段写在 BaseEntity 中，其他实体类继承。
+在实际业务场景中，每个表都会有固定的公共字段，我们每个实体类都写上这些字段是很蠢的，所以要将公共字段写在 BaseEntity 中，其他实体类继承。
 
 - `@MappedSuperclass` 父类必加注解，不加会报错
 - `@EntityListeners(AuditingEntityListener::class)` 不加此注解的话`@CreatedDate`,`@LastModifiedDate`不起作用
@@ -195,7 +195,7 @@ class UserNameDto(
 )
 ```
 
-###查询方法
+### 查询方法
 
 ```
 // 获取部分字段
