@@ -48,7 +48,7 @@ ps： 如果链接没有跳转是不会触发这个 bug 的。
 
 ## 在 dio 中使用
 
-如果使用 Dart 原生的`HttpClient`,我们将失去 http 库很多好用的功能，http 库的本质是原生`HttpClient`的一些功能封装，万幸我们可以通过覆盖 http 库的`HttpClient`来比慢这个 bug，以 dio 为例：
+如果使用 Dart 原生的`HttpClient`,我们将失去 http 库很多好用的功能，http 库的本质是原生`HttpClient`的一些功能封装，万幸我们可以通过覆盖 http 库的`HttpClient`来修复这个 bug，以 dio 为例：
 
 ```dart
 final dio = Dio();
