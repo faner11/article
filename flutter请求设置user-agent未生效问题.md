@@ -1,4 +1,4 @@
-最近在玩 Flutter，遇到一个 http 请求设置 user-agent 的无效的坑，这个坑是 Dart 提供的 HttpClient 的 bug，所以几乎所有的 http 库都有这个问题，比如 dio，http 等等，今天将解决方案分享出来，希望官方团队早日修复 bug。
+最近在玩 Flutter，遇到一个 http 请求设置 user-agent 的无效的坑，是 Dart 原生 HttpClient 的 bug，所以几乎所有相关的 http 库都有这个问题，比如 dio，http 等等，今天将解决方案分享出来，希望官方团队早日修复 bug。
 
 ## 未生效案例
 
@@ -17,7 +17,7 @@ void ioHttp(String url, String ua) async {
 }
 ```
 
-以上是标准的设置`user-agent`的写发，网上几乎所有的教程都是这样写，这样写请求的`Headers`会有`user-agent`字段，值也是你设置的 ua 信息，一切都会那么正常，可是这种写法就是会被识别出来。
+以上是标准的设置`user-agent`的写法，网上几乎所有的教程都是这样写，这样写请求的`Headers`会有`user-agent`字段，值也是你设置的 ua 信息，一切都会那么正常，可是这种写法有时返回就是错的。
 
 ## 生效案例
 
@@ -38,11 +38,11 @@ void ioHttp(String url, String ua) async {
 }
 ```
 
-当我在代码中加上`httpClient.userAgent = null`的时候就不会被识别，可以正常工作。
+当我在代码中加上`httpClient.userAgent = null`的时候就一切正常。
 
 ## 原因
 
-当请求的链接做了 301 或 302 之类的跳转时,跳转后的连接 UA 信息为`Dart/<version> (dart:io)`,UA 不对就拿不到正常的返回了，但是设置`httpClient.userAgent = null`后，跳转后的链接 UA 信息又是正常的，好坑。
+当请求的链接做了 301 或 302 之类的跳转时,跳转后的链接 UA 信息为`Dart/<version> (dart:io)`,UA 不对就拿不到正常的返回了，但是设置`httpClient.userAgent = null`后，跳转后的链接 UA 信息又是正常的，好坑。
 
 ps： 如果链接没有跳转是不会触发这个 bug 的。
 
@@ -62,4 +62,4 @@ final req = await dio.get(url,
 print(req.data.toString()); //正常
 ```
 
-这个我们就可以使用 dio 继续愉快的工作啦。
+这样我们就可以使用 dio 继续愉快的工作啦。
