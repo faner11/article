@@ -1,4 +1,6 @@
-很久没有写分享了，因为最近一直在用 kotlin 写 spring，作为 kotlin 新人遇到的坑基本都能 Google 到，也就没必要在写一次了。今天将我在开发过程中使用 kotlin 加 mybatis-plus 遇到的问题写出来，给即将入坑的朋友。
+最近一直在用 kotlin 写 spring，作为 kotlin 新人遇到的坑基本都能 Google 到，也就没必要在写一次了。今天将我在开发过程中使用 mybatis-plus 的 AutoGenerator kotlin 版本分享出来，给即将入坑的朋友。
+
+通过 AutoGenerator 可以快速生成 Entity、Mapper、Mapper XML、Service、Controller 等各个模块的代码，极大的提升了开发效率。
 
 ---
 
